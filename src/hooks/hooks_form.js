@@ -2,7 +2,12 @@ import React, { useState, useReducer, useContext } from 'react';
 import * as ACTIONS from '../store/actions/actions';
 import * as formReducer from '../store/hooks_state/input_form_reducer';
 
+import Context from  '../utils/context';
+
 const HooksForm = () => {
+
+    const context = useContext(Context);
+
     const [valueChange, setValueChange] = useState("");
     const [valueSubmit, setValueSubmit] = useState("");
 
@@ -18,15 +23,15 @@ const HooksForm = () => {
     }
 
 
-    const handleUserReducerChange = (event) => {
-        userDispatch(ACTIONS.user_input_change(event.target.value));
+    // const handleUserReducerChange = (event) => {
+    //     userDispatch(ACTIONS.user_input_change(event.target.value));
 
-    }
+    // }
 
-    const handleUserReducerSubmit = (event) => {
-        event.preventDefault(); //to prevent form from reloading the page
-        userDispatch(ACTIONS.user_input_submit(event.target.useStateReducerInput.value));
-    }
+    // const handleUserReducerSubmit = (event) => {
+    //     event.preventDefault(); //to prevent form from reloading the page
+    //     userDispatch(ACTIONS.user_input_submit(event.target.useStateReducerInput.value));
+    // }
 
     return(
         <div>
@@ -44,16 +49,21 @@ const HooksForm = () => {
 
 
             <h1>Using Form with GlobalReducer</h1>
-            <form onSubmit={handleUserReducerSubmit}>
+            <form onSubmit={context.handleUserReducerSubmit}>
                 <p>Our Hooks Form goes here: </p>
-                <input id="useStateReducerInput" type="text" onChange={handleUserReducerChange} />
+                <input id="useStateReducerInput" type="text" onChange={context.handleUserReducerChange} />
                 <button type="submit">Submit</button>
             </form>
             <br />
-            <div>
+            {/* <div>
                 <h2>React use local state: </h2>
                 <p> Change of value: {userState.user_text_change}</p>
                 <p> Change of Submit: {userState.user_form_submit}</p>
+            </div> */}
+            <div>
+                <h2>React use local state: </h2>
+                <p> Change of value: {context.formInput}</p>
+                <p> Change of Submit: {context.formSubmit}</p>
             </div>
             
         </div>
