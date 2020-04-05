@@ -1,32 +1,61 @@
-import React, { useState, userReducer, useContext } from 'react';
+import React, { useState, useReducer, useContext } from 'react';
+import * as ACTIONS from '../store/actions/actions';
+import * as formReducer from '../store/hooks_state/input_form_reducer';
 
 const HooksForm = () => {
     const [valueChange, setValueChange] = useState("");
     const [valueSubmit, setValueSubmit] = useState("");
+
+    const [userState, userDispatch] = useReducer(formReducer.FormReducer, formReducer.initialState);
 
     const handleUseStateChange = (event) => {
         setValueChange(event.target.value);
     }
 
     const handleUseStateSubmit = (event) => {
-        console.log("event", event.target)
         event.preventDefault();
-        setValueSubmit(event.target.value);
+        setValueSubmit(event.target.useStateInput.value);
+    }
+
+
+    const handleUserReducerChange = (event) => {
+        userDispatch(ACTIONS.user_input_change(event.target.value));
+
+    }
+
+    const handleUserReducerSubmit = (event) => {
+        event.preventDefault(); //to prevent form from reloading the page
+        userDispatch(ACTIONS.user_input_submit(event.target.useStateReducerInput.value));
     }
 
     return(
         <div>
             <form onSubmit={handleUseStateSubmit}>
                 <p>Our Hooks Form goes here: </p>
-                <input id="useState" type="text" onChange={handleUseStateChange} />
+                <input id="useStateInput" type="text" onChange={handleUseStateChange} />
                 <button type="submit">Submit</button>
             </form>
             <br />
             <div>
-                <h2>React use state: </h2>
+                <h2>React use local state: </h2>
                 <p> Change of value: {valueChange}</p>
                 <p> Change of Submit: {valueSubmit}</p>
             </div>
+
+
+            <h1>Using Form with GlobalReducer</h1>
+            <form onSubmit={handleUserReducerSubmit}>
+                <p>Our Hooks Form goes here: </p>
+                <input id="useStateReducerInput" type="text" onChange={handleUserReducerChange} />
+                <button type="submit">Submit</button>
+            </form>
+            <br />
+            <div>
+                <h2>React use local state: </h2>
+                <p> Change of value: {userState.user_text_change}</p>
+                <p> Change of Submit: {userState.user_form_submit}</p>
+            </div>
+            
         </div>
     )
 }
