@@ -32,6 +32,9 @@ class Header extends Component {
           <Link to='/hookscontainer' style={{padding: '5px'}}>
             Hooks
           </Link>
+          <Link to='/hooks_form' stype={{padding: '5px'}}>
+            Hooks Form
+          </Link>
           {!this.props.is_authenticated
             ? <button onClick={() => this.props.auth.login()}>Login</button>
             : <button onClick={() => this.props.auth.logout()}>Logout</button>

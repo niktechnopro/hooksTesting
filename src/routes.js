@@ -9,6 +9,8 @@ import RenderList from './containers/renderlist';
 
 //hooks
 import HooksContainer1 from './hooks/hooks_container1';
+
+import HooksForm from './hooks/hooks_form';
 //hooks
 
 
@@ -24,6 +26,7 @@ import * as ACTIONS from './store/actions/actions';
 import Auth from './utils/auth';
 import AuthCheck from './utils/authcheck';
 import history from './utils/history';
+
 
 import { Router, Route, Switch, Redirect } from 'react-router';
 
@@ -82,6 +85,8 @@ class Routes extends Component {
             <Route path="/listitem/:id" component={RenderListItem} />
 
             <Route path="/hookscontainer" component={HooksContainer1} />
+
+            <Route path="/hooks_form" component={HooksForm} />
 
             <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
             <PrivateRoute path="/profile" auth={auth} component={Profile} />
